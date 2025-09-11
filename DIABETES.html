@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشروع تحليل بيانات السكري</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            color: #333;
+            direction: rtl;
+            text-align: right;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            
+            background: #007BFF;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+            border-bottom: 5px solid #0056b3;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        nav {
+            padding: 0.5rem 0;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 1rem 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        nav a {
+            color: #fff;
+            margin: 0 1.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            position: relative;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #00ff88;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover{
+            transform: scale(1.2);
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+
+        }
+
+
+        main {
+            padding: 2rem;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .intro-section, .steps-section {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: #0056b3;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        h2:hover{
+            color:#ff007a;
+        }
+
+        .step {
+            margin-bottom: 2rem;
+        }
+
+        .step h3 {
+            color: #28a745;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: auto;
+            object-fit:contain;
+            background-color: #e9ecef;
+            border: 2px double #adb5bd;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #495057;
+            font-style: italic;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #00ff88;
+            color: #fff;
+            padding: 0.8rem 1rem;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+    
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            transform: scale(1.2);
+            background: #ff007a;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+        .image-placeholder:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 40px linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        }
+        h4{
+            justify-content: center;
+            width:100%;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); 
+            margin:40;
+        }
+        
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>مشروع تحليل بيانات السكري 🩺</h1>
+        <p> تحليل البيانات وعرضها باستخدام Python وPandas وMatplotlib المشروع تحت التنفيذ</p>
+    </header>
+    <nav>
+        <a href="#one">المكتبات</a>
+        <a href="#two">تنظيف البيانات</a>
+        <a href="#three">المعالجة المسبقة للبيانات</a>
+        <a href="#boxplot_output">BoxPlot</a>
+        <a href="#four">التحليل الاستكشافي للبيانات</a>
+        <a href="#Scatter_output">Scatter</a>
+        <!-- <a href="#fifth">النتائج والاستنتاجات</a> -->
+    </nav>
+    <main>
+        <section class="intro-section" >
+            <h2>مقدمة حول المشروع</h2>
+            <p>
+                يهدف هذا المشروع إلى تحليل مجموعة بيانات شاملة حول مرضى السكري لفهم العوامل الرئيسية التي تؤثر على الإصابة بالمرض. قمنا باستخدام مكتبات قوية مثل Pandas لإدارة البيانات، وMatplotlib لإنشاء تصورات بيانية توضيحية. من خلال هذه التحليلات، يمكننا الكشف عن الأنماط والعلاقات بين العوامل المختلفة مثل العمر، ضغط الدم، ومستوى الجلوكوز، والإصابة بالسكري.
+            </p>
+        </section>
+
+        <section class="steps-section" >
+            <h2 id="one">خطوات العمل في المشروع</h2>
+            <div class="step">
+                <h3>1. استدعاء المكتبات (Importing libraries)</h3>
+                <p>
+                    اضافة مكتبات مثل pandasوnumpyوmatpotlibوsklearn
+                </p>
+                <div class="image-placeholder" id="image1">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\libraries.png" alt="اضافة مكتبات مثل pandasوnumpyوmatpotlibوsklearn">
+                </div>
+            </div>
+            <div class="step">
+                <h3 id="two">2. تنظيف البيانات (Data Cleaning) 🧹</h3>
+                <p>ادراج ملف csv وتعيين set_option لعرض جميع الداتا الموجوده مع العلم ان حجمها في البدايه كان مئة الف صف</p>
+                <div class="image-placeholder" id="image2">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\read_csv.png" alt="عرض جميع الداتا الموجوده مع العلم ان حجمها في البدايه كان مئة الف صف">
+                </div>
+                <p>
+                    كانت الخطوة الأولى هي تنظيف البيانات من القيم المفقودة وغير الصحيحة. قمنا بحذف الصفوف التي تحتوي على قيم فارغة، وتصحيح أنواع البيانات، وإزالة القيم المكررة لضمان دقة التحليل.
+                </p>
+                <div class="image-placeholder" id="image3">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\remove_incorrect_data.png" alt="                    كانت الخطوة الأولى هي تنظيف البيانات من القيم المفقودة وغير الصحيحة. قمنا بحذف الصفوف التي تحتوي على قيم فارغة، وتصحيح أنواع البيانات، وإزالة القيم المكررة لضمان دقة التحليل.">
+                </div>
+                <p> 
+                    "ازالت القيم المتكررة و قراءة الملف الجديد مع استخدام sortوreset_index"
+                </p>
+                <div class="image-placeholder" id="image4">
+                    <img src= "C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\new_read_index_sort.png" alt="ازالت القيم المتكررة و قراءة الملف الجديد مع استخدام sortوreset_index">
+                </div>
+            </div>
+
+            <div class="step">
+                <h3  id="three">3. المعالجة المسبقة للبيانات (Data Preprocessing) 🛠️</h3>
+                <p>
+                    الكشف عن القيم الشاذة(outliers) بستخدام z-score وتغيير رقم الشكل اذا كان العامود من نوع int اذا لم يكن نطبع الامر الاتي print(f"Column {ill} is non-numeric") في حال كان العامود int نطبع انه لا يوجد خطأ وذلك بعد الرسم في حال ضهور outliers يتم طباعتم قبل الرسم
+                </p>
+                <div class="image-placeholder" id="image5">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\outlieres_code.png" alt="">
+                </div>
+                <div class="image-placeholder" id="image6">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\outlieres_code2.png" alt="">
+                </div>
+                <br>
+                <h2 id ="boxplot_output">boxplot output</h2>
+                <h4>العمر : <p>في عامود الاعمار لا يوجد قيم شاذه و الخط الاخضر يشير الى median</p>
+                </h4>
+                <div class="image-placeholder" id="image7">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\age.png" alt="">
+                </div>
+                <h4>ضغط الدم : <p>تمثل الدائرة السوداء الى وجود قيم شاذه من خلال مراجعة البيانات تبين ان عددد القيم التي تساوي واحد قليله فهذا السبب فقد لا تضرنا ابقائها</p></h4>
+                <div class="image-placeholder" id="image11">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\hypertension.png" alt="">
+                </div>
+                <h4>مشاكل القلب : تعد نفس القرائه الخاصه بضغط الدم </h4>
+                <div class="image-placeholder" id="image12">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\heart_disease.png" alt="">
+                </div>
+                <h4>مقياس الوزن : قد ختلف من شخص الى اخر من المقاسات الموجوده
+                <p>18 - 24 : شخص نحيف</p>
+                <p>25 - 30 : شخص وزنه متوسط</p>
+                <p>31 - 40 : سمنه مفرطه</p>
+                </h4>
+                <div class="image-placeholder" id="image8">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\bmi.png" alt="">
+                </div>
+                <h4>قياس السكر قبل 3 اشهر : <p>يتم التشخيص بالاصابه اذا وصل المريض الى 6.5 هناك قيم شاذه تتعدا القيمه العضمه 8.2 ولاكن يمكن استخدامها لمعرفت حالة الطوارئ</p></h4>
+                <div class="image-placeholder" id="image10">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\HbA1c_level.png" alt="">
+                </div>
+                <h4>قياس السكر الحالي بعد الصيام :<p> تبدأالاصابة عند درجة126 يوجد ثلاث قيم شاذة و لاكن لم نحذفهم لحالة الطوارئ
+                </p>
+                    </h4>
+                <div class="image-placeholder" id="image13">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\blood_glucose_level.png" alt="">
+                </div>
+                <h4>الاصابة بالسكر : هذا المرض الاساسي المراد كشفه</h4>
+                <div class="image-placeholder" id="image9">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\diabetes.png" alt="">
+                </div>
+                
+            </div>
+
+            <div class="step"id="non"  >
+                <h3  id="four">4. التحليل الاستكشافي للبيانات (EDA) 🔍</h3>
+                <h5>جميع القيم توضح ارتباط القياسات بمرض السكري اي يعني جميع العلاقات ايجابية</h5>
+                <p>
+                    في هذه المرحلة، استكشفنا البيانات بعمق باستخدام أدوات التصور البياني. قمنا بإنشاء رسوم بيانية مختلفة مثل المخططات الشريطية والمخططات النقطية لفهم العلاقة بين المتغيرات المختلفة ومرض السكري.
+                </p>
+                
+                <div class="image-placeholder" id="image14">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\virtualization_code.png" alt="">
+                </div>
+                <div class="image-placeholder" id="image15">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\virtualization_code2.png" alt="">
+                </div>
+                <h2 id="Scatter_output">Scatter output</h2>
+                <div class="image-placeholder" id="image16">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\age vs diabetes.png" alt="">
+                </div>
+                <div class="image-placeholder" id="image17">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\hypertension vs diabetes.png" alt="">
+                </div>
+                <div class="image-placeholder" id="image18">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\heart_disease vs diabetes.png" alt="">
+                </div>
+                <div class="image-placeholder" id="image19">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\bmi vs diabetes.png" alt="">
+                </div>
+                <div class="image-placeholder" id="image20">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\HbA1c_level vs diabetes.png" alt="">
+                </div>
+                <div class="image-placeholder" id="image21">
+                    <img src="C:\Users\h p\OneDrive\Desktop\howcsv\diabetes_outliers_img\blood_glucose vs diabetes.png" alt="">
+                </div>
+            </div>
+            
+            <!-- <div class="step">
+                <h3 id="fifth">5. النتائج والاستنتاجات 📊</h3>
+                <p>
+                    من خلال التحليلات، تمكنا من تحديد العوامل الأكثر تأثيراً على احتمالية الإصابة بالسكري، مثل مستوى HbA1c و blood glucose. النتائج تقدم رؤى مهمة يمكن أن تساعد في الوقاية من المرض.
+                </p>
+            </div>
+
+            <div class="step">
+                
+            </div>
+            <div class="step">
+                
+            </div>
+            <div class="step">
+                
+            </div>
+            <div class="step">
+
+            </div>
+            <div class="step">
+                
+            </div>
+            <div class="step">
+                <div class="image-placeholder" id="image10">
+                    <img src="" alt="">
+                </div>
+            </div>
+            <div class="step">
+                <div class="image-placeholder" id="image11">
+                    <img src="" alt="">
+                </div>
+            </div>
+            <div class="step">
+                <div class="image-placeholder" id="image12">
+                    <img src="" alt="">
+                </div>
+            </div>
+            <div class="step">
+                <div class="image-placeholder" id="image13">
+                    <img src="" alt="">
+                </div>
+            </div>
+            <div class="step">
+                <div class="image-placeholder" id="image14">
+                    <img src="" alt="">
+                </div>
+            </div>
+            <div class="step">
+                <div class="image-placeholder" id="image15">
+                    <img src="" alt="">
+                </div>
+            </div>
+        </section> -->
+    </main>
+
+    <footer>
+        <p>&copy; Thaer Habeeb 2024 مشروع تحليل بيانات السكري. جميع الحقوق محفوظة.</p>
+    </footer>
+    <a href="#" class="back-to-top" title="Back to Top">↑</a>
+<script>
+        // Scroll Animation for Sections
+        const sections = document.querySelectorAll('.section');
+        const observers = document.querySelectorAll('.scroll-observer');
+
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        observers.forEach((observer, index) => {
+            const section = sections[index];
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        section.classList.add('visible');
+                        io.unobserve(observer);
+                    }
+                });
+            }, observerOptions);
+            io.observe(observer);
+        });
+
+        // Back to Top Button
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>
